@@ -1,16 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import SecurityIcon from '@mui/icons-material/Security';
-import LanguageIcon from '@mui/icons-material/Language';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import HomeIcon from '@mui/icons-material/Home';
-import PhoneIcon from '@mui/icons-material/Phone';
-import PublicIcon from '@mui/icons-material/Public';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { COLORS } from '@/app/constants/colors';
+import Image from 'next/image';
 
 export default function MainHero() {
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,13 +21,58 @@ export default function MainHero() {
 		return () => clearInterval(interval);
 	}, [heroImages.length]);
 
-	const handleContactClick = () => {
-		window.location.href = '/contact';
-	};
-
-	const handleServicesClick = () => {
-		window.location.href = '/about-us';
-	};
+	const serviceCards = [
+		{
+			id: 1,
+			title: 'IMPLEMENTACIÓN CON IA',
+			frontImage:
+				'https://images.unsplash.com/photo-1734597949889-f8e2ec87c8ea?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+			backText: [
+				'Integración de inteligencia artificial para optimizar procesos empresariales.',
+				'• Automatización de tareas repetitivas con IA',
+				'• Análisis predictivo para toma de decisiones',
+				'• Chatbots inteligentes personalizados',
+				'• Procesamiento de datos en tiempo real',
+			],
+		},
+		{
+			id: 2,
+			title: 'CHATBOT',
+			frontImage:
+				'https://images.unsplash.com/photo-1659018966820-de07c94e0d01?q=80&w=1198&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+			backText: [
+				'Proporciona una atención al cliente instantánea y disponible las 24 hrs.',
+				'• Enlace con Calendly para organizar reuniones',
+				'• La recopilación de datos en tiempo real a través de interacciones con los usuarios',
+				'• Respuestas automáticas personalizadas',
+			],
+		},
+		{
+			id: 3,
+			title: 'DOMÓTICA',
+			frontImage: '/hero/domotica.jpg',
+			backText: [
+				'Contamos con los servicios necesarios para que puedas optimizar y mejorar la manera en la que vives:',
+				'• Luces inteligentes',
+				'• Puertas con apertura y cierre automático',
+				'• Cámaras inteligentes',
+				'• Control remoto total desde tu smartphone',
+			],
+		},
+		{
+			id: 4,
+			title: 'CAMPAÑAS PARA REDES SOCIALES',
+			frontImage: '/hero/socialmedia.jpg',
+			backText: [
+				'Manejo de redes sociales para campañas online, para todo tipo de negocio o imagen pública.',
+				'• Creación de contenido atractivo',
+				'• Redacción de mensajes de marketing',
+				'• Actualización semanal programada',
+				'• Mensajes masivos de WhatsApp y SMS',
+				'• Análisis de métricas y engagement',
+			],
+		},
+	];
 
 	return (
 		<>
@@ -78,168 +115,189 @@ export default function MainHero() {
 
 			<section className='bg-white py-16'>
 				<div className='max-w-6xl mx-auto px-4'>
+					{/* TEXTO PRINCIPAL */}
 					<div className='text-center mb-16'>
-						<p className='text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8'>
-							Transformamos tu visión digital en realidad. Desde{' '}
-							<strong>seguridad inteligente</strong> y{' '}
-							<strong>hosting web</strong> {' '}
-							hasta <strong>posicionamiento en Google</strong> y servicios
-							residenciales especializados.
+						<h2 className='text-4xl md:text-5xl font-bold text-gray-800 mb-6'>
+							CONOCE NUESTRO{' '}
+							<span style={{ color: COLORS.primary }}>TRABAJO</span>
+						</h2>
+
+						<div className='flex justify-center mb-8'>
+							<div
+								className='w-36 h-1 rounded-full absolute'
+								style={{
+									background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.primary}80)`,
+									left: 'calc(40% - 200px)',
+								}}
+							></div>
+						</div>
+						<p className='text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed'>
+							Somos una empresa mexicana líder en servicios de domótica,
+							posicionamiento, telefonía IP y más. Ofrecemos soluciones
+							innovadoras y de alta calidad respaldadas por un soporte
+							personalizado. Nuestra misión es llevar tu hogar o negocio al
+							siguiente nivel. Descubre cómo podemos ayudarte a alcanzar tus
+							metas.
 						</p>
-						<p className='text-lg text-gray-600 max-w-3xl mx-auto'>
-							Conectividad que garantiza tu tranquilidad • Potencia tu presencia
-							online • Servicios profesionales en Pachuca
-						</p>
 					</div>
 
-					<div className='flex flex-col sm:flex-row gap-4 justify-center mb-16'>
-						<button
-							onClick={handleContactClick}
-							className='flex items-center justify-center gap-2 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-xl transition-all transform hover:scale-[1.02]'
-							style={{ backgroundColor: COLORS.primary }}
-						>
-							<RocketLaunchIcon fontSize='small' />
-							Solicitar Cotización
-						</button>
+					{/* TARJETAS SERVICIOS CON FLIP */}
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16'>
+						{serviceCards.map((card) => (
+							<div key={card.id} className='flip-card h-80'>
+								<div className='flip-card-inner'>
+									{/* FRENTE */}
+									<div className='flip-card-front'>
+										<div
+											className='w-full h-full relative overflow-hidden rounded-xl shadow-lg cursor-pointer'
+											style={{
+												backgroundImage: `url(${card.frontImage})`,
+												backgroundSize: 'cover',
+												backgroundPosition: 'center',
+											}}
+										>
+											<div className='absolute inset-0 bg-black/20 bg-opacity-40'></div>
+											<div className='absolute bottom-0 left-0 right-0 p-6'>
+												<h3 className='text-white text-xl font-bold text-center'>
+													{card.title}
+												</h3>
+											</div>
+										</div>
+									</div>
 
-						<button
-							onClick={handleServicesClick}
-							className='flex items-center justify-center gap-2 border-2 text-gray-800 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all'
-							style={{ borderColor: COLORS.primary }}
-						>
-							<ArrowForwardIcon fontSize='small' />
-							Ver Servicios
-						</button>
+									{/* DORSO */}
+									<div className='flip-card-back'>
+										<div
+											className='w-full h-full p-6 rounded-xl shadow-lg flex flex-col justify-center text-white cursor-pointer'
+											style={{ backgroundColor: COLORS.primary }}
+										>
+											<div className='text-center space-y-3'>
+												{card.backText.map((text, index) => (
+													<p
+														key={index}
+														className={`${
+															index === 0
+																? 'text-lg font-semibold mb-4'
+																: 'text-sm'
+														}`}
+													>
+														{text}
+													</p>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						))}
 					</div>
 
-					<div className='grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16'>
-						<Link
-							href='/products'
-							className='bg-gray-50 hover:bg-gray-100 p-6 rounded-xl transition-all transform hover:scale-[1.05] border border-gray-200 text-center'
-						>
-							<div className='mb-3 flex justify-center'>
-								<SecurityIcon
-									style={{ fontSize: '3rem', color: COLORS.primary }}
+					{/* SECCIÓN LOGOS  */}
+					<div className='text-center mb-16'>
+						<h3 className='text-4xl md:text-5xl font-bold text-gray-800 mb-6'>
+							CONOCE MÁS{' '}
+							<span style={{ color: COLORS.primary }}>DE NOSOTROS</span>
+						</h3>
+
+						<div className='flex justify-center mb-8'>
+							<div
+								className='w-36 h-1 rounded-full absolute'
+								style={{
+									background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.primary}80)`,
+									left: 'calc(40% - 200px)',
+								}}
+							></div>
+						</div>
+
+						{/* LOGO PRINCIPAL - GRUPO */}
+						<div className='flex justify-center mb-8'>
+							<div className='w-32 h-32 relative cursor-pointer hover:scale-110 transition-transform duration-300'>
+								<Image
+									src='/logos/grupo.png'
+									alt='Grupo'
+									fill
+									className='object-contain'
 								/>
 							</div>
-							<h3 className='font-bold mb-2 text-gray-800'>
-								Seguridad Inteligente
-							</h3>
-							<p className='text-sm text-gray-600'>
-								Puertas automáticas y sistemas de seguridad
-							</p>
-						</Link>
+						</div>
 
-						<Link
-							href='/products'
-							className='bg-gray-50 hover:bg-gray-100 p-6 rounded-xl transition-all transform hover:scale-[1.05] border border-gray-200 text-center'
-						>
-							<div className='mb-3 flex justify-center'>
-								<LanguageIcon
-									style={{ fontSize: '3rem', color: COLORS.primary }}
+						{/* LOGOS SECUNDARIOS */}
+						<div className='flex flex-wrap justify-center items-center gap-20 max-w-4xl mx-auto'>
+							<div className='w-24 h-24 relative cursor-pointer hover:scale-110 transition-transform duration-300'>
+								<Image
+									src='/logos/uni.jpg'
+									alt='Universidad'
+									fill
+									className='object-contain'
 								/>
 							</div>
-							<h3 className='font-bold mb-2 text-gray-800'>Hosting Web</h3>
-							<p className='text-sm text-gray-600'>
-								Servicios en la nube y correos institucionales
-							</p>
-						</Link>
-
-						<Link
-							href='/products'
-							className='bg-gray-50 hover:bg-gray-100 p-6 rounded-xl transition-all transform hover:scale-[1.05] border border-gray-200 text-center'
-						>
-							<div className='mb-3 flex justify-center'>
-								<TrendingUpIcon
-									style={{ fontSize: '3rem', color: COLORS.primary }}
+							<div className='w-24 h-24 relative cursor-pointer hover:scale-110 transition-transform duration-300'>
+								<Image
+									src='/logos/logo.png'
+									alt='Logo'
+									fill
+									className='object-contain'
 								/>
 							</div>
-							<h3 className='font-bold mb-2 text-gray-800'>Posicionamiento</h3>
-							<p className='text-sm text-gray-600'>
-								Destaca en Google y redes sociales
-							</p>
-						</Link>
-
-						<Link
-							href='/residential-services'
-							className='bg-gray-50 hover:bg-gray-100 p-6 rounded-xl transition-all transform hover:scale-[1.05] border border-gray-200 text-center'
-						>
-							<div className='mb-3 flex justify-center'>
-								<HomeIcon style={{ fontSize: '3rem', color: COLORS.primary }} />
+							<div className='w-24 h-24 relative cursor-pointer hover:scale-110 transition-transform duration-300'>
+								<Image
+									src='/logos/fundacion.webp'
+									alt='Fundación'
+									fill
+									className='object-contain'
+								/>
 							</div>
-							<h3 className='font-bold mb-2 text-gray-800'>
-								Servicios Residenciales
-							</h3>
-							<p className='text-sm text-gray-600'>
-								Electricistas, jardineros y plomeros
-							</p>
-						</Link>
-					</div>
-
-					<div className='grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12'>
-						<div className='text-center'>
-							<div
-								className='text-3xl md:text-4xl font-bold mb-2'
-								style={{ color: COLORS.primary }}
-							>
-								500+
+							<div className='w-24 h-24 relative cursor-pointer hover:scale-110 transition-transform duration-300'>
+								<Image
+									src='/logos/feshi.jpg'
+									alt='Feshi'
+									fill
+									className='object-contain'
+								/>
 							</div>
-							<div className='text-sm md:text-base text-gray-600'>
-								Proyectos Exitosos
-							</div>
-						</div>
-						<div className='text-center'>
-							<div
-								className='text-3xl md:text-4xl font-bold mb-2'
-								style={{ color: COLORS.primary }}
-							>
-								15+
-							</div>
-							<div className='text-sm md:text-base text-gray-600'>
-								Años de Experiencia
-							</div>
-						</div>
-						<div className='text-center'>
-							<div
-								className='text-3xl md:text-4xl font-bold mb-2'
-								style={{ color: COLORS.primary }}
-							>
-								100+
-							</div>
-							<div className='text-sm md:text-base text-gray-600'>
-								Empresas Atendidas
-							</div>
-						</div>
-						<div className='text-center'>
-							<div
-								className='text-3xl md:text-4xl font-bold mb-2'
-								style={{ color: COLORS.primary }}
-							>
-								24/7
-							</div>
-							<div className='text-sm md:text-base text-gray-600'>
-								Soporte Técnico
-							</div>
-						</div>
-					</div>
-
-					{/* INFORMACIÓN DE CONTACTO RÁPIDA */}
-					<div className='flex flex-col sm:flex-row items-center justify-center gap-6 text-gray-600 text-center'>
-						<div className='flex items-center gap-2'>
-							<PhoneIcon style={{ color: COLORS.primary }} />
-							<span className='font-medium'>771 604 0985</span>
-						</div>
-						<div className='flex items-center gap-2'>
-							<PublicIcon style={{ color: COLORS.primary }} />
-							<span className='font-medium'>corporativoehecatl.com.mx</span>
-						</div>
-						<div className='flex items-center gap-2'>
-							<LocationOnIcon style={{ color: COLORS.primary }} />
-							<span className='font-medium'>Pachuca, Hidalgo</span>
 						</div>
 					</div>
 				</div>
 			</section>
+
+			{/* ESTILOS FLIP */}
+			<style jsx>{`
+				.flip-card {
+					background-color: transparent;
+					perspective: 1000px;
+				}
+
+				.flip-card-inner {
+					position: relative;
+					width: 100%;
+					height: 100%;
+					text-align: center;
+					transition: transform 0.8s;
+					transform-style: preserve-3d;
+				}
+
+				.flip-card:hover .flip-card-inner {
+					transform: rotateY(180deg);
+				}
+
+				.flip-card-front,
+				.flip-card-back {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					-webkit-backface-visibility: hidden;
+					backface-visibility: hidden;
+				}
+
+				.flip-card-back {
+					transform: rotateY(180deg);
+				}
+
+				/* Efecto de sombra mejorado en hover */
+				.flip-card:hover {
+					filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+				}
+			`}</style>
 		</>
 	);
 }
