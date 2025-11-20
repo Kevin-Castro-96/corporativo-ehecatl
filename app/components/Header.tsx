@@ -27,14 +27,14 @@ export default function Header() {
 
 	return (
 		<header className='bg-white shadow-lg sticky top-0 z-50 border-b border-gray-100'>
-			<nav className='max-w-7xl mx-auto flex items-center justify-between px-4 py-4'>
+			<nav className='max-w-7xl mx-auto flex items-center justify-between px-4 py-2'>
 				<div className='flex items-center gap-3'>
-					{/* <img src="/logo.png" alt="Corporativo Ehécatl Logo" className="h-10 w-auto" /> */}
+					
 					<Link
 						href='/'
 						className='flex items-center gap-2 hover:opacity-80 transition-opacity'
 					>
-						<BusinessIcon sx={{ fontSize: 32, color: COLORS.primary }} />
+						<img src="/corporativo.webp" alt="Corporativo Ehécatl Logo" className="h-16 w-auto" />
 						<div>
 							<h1 className='text-xl font-bold text-gray-800'>Corporativo</h1>
 							<p className='text-sm text-gray-500 -mt-1'>Ehécatl</p>
