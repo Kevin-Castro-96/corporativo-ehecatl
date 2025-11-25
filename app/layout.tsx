@@ -26,16 +26,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html>
-      <Header />
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-      <Footer />
-      <WhatsAppFloat />
-    </html>
-  );
+	return (
+		<html lang='es'>
+			<head></head>
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+			>
+				<Header />
+				{children}
+				<Footer />
+				<WhatsAppFloat />
+			</body>
+		</html>
+	);
 }

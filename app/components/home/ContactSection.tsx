@@ -5,6 +5,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import { COLORS } from '@/app/constants/colors';
 
 interface ContactFormData {
@@ -73,100 +74,220 @@ export default function ContactSection() {
 	};
 
 	return (
-		<div className='w-full min-h-screen flex justify-center items-center px-4 py-10 bg-gray-50'>
-			<div className='max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 p-4'>
-				<div className='flex flex-col justify-center'>
+		<div className='w-full min-h-screen px-4 py-10 bg-gray-50'>
+			<div className='max-w-6xl mx-auto mb-16'>
+				<div className='text-center mb-12'>
+					<h2 className='text-4xl md:text-5xl font-bold text-gray-800 mb-6'>
+						CONTACTO
+					</h2>
+					<div className='flex justify-center mb-8'>
+						<div
+							className='w-32 h-1 rounded-full'
+							style={{
+								background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.primary}80)`,
+							}}
+						></div>
+					</div>
+					<p className='text-lg text-gray-600 max-w-3xl mx-auto'>
+						No dudes en ponerte en contacto con nosotros; estaremos encantados
+						de atenderte.
+					</p>
+				</div>
 
-					<div className='mb-8'>
-						<h2 className='text-2xl font-bold mb-4 text-gray-800'>
-							Corporativo Ehécatl
-						</h2>
-						<p className='text-gray-600 mb-6 leading-relaxed text-lg'>
-							No dudes en ponerte en contacto con nosotros; estaremos encantados
-							de atenderte.
-						</p>
-						<p
-							className='text-xl font-semibold mb-8'
-							style={{ color: COLORS.primary }}
-						>
-							¡Contáctanos!
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-16'>
+					<div className='text-center p-6 bg-white rounded-xl shadow-lg'>
+						<div className='flex justify-center mb-4'>
+							<div
+								className='w-16 h-16 rounded-full flex items-center justify-center'
+								style={{ backgroundColor: `${COLORS.primary}15` }}
+							>
+								<PhoneIcon sx={{ fontSize: 32, color: COLORS.primary }} />
+							</div>
+						</div>
+						<h3 className='font-semibold text-gray-800 text-lg mb-2'>
+							Teléfono
+						</h3>
+						<p className='text-gray-600'>771 604 0985</p>
+					</div>
+
+					<div className='text-center p-6 bg-white rounded-xl shadow-lg'>
+						<div className='flex justify-center mb-4'>
+							<div
+								className='w-16 h-16 rounded-full flex items-center justify-center'
+								style={{ backgroundColor: `${COLORS.primary}15` }}
+							>
+								<EmailIcon sx={{ fontSize: 32, color: COLORS.primary }} />
+							</div>
+						</div>
+						<h3 className='font-semibold text-gray-800 text-lg mb-2'>Email</h3>
+						<p className='text-gray-600 text-sm'>
+							contacto@corporativoehecatl.com.mx
 						</p>
 					</div>
 
-					<div className='space-y-4 mb-8'>
-						<div className='flex items-center gap-4'>
+					<div className='text-center p-6 bg-white rounded-xl shadow-lg'>
+						<div className='flex justify-center mb-4'>
 							<div
-								className='w-12 h-12 rounded-full flex items-center justify-center'
+								className='w-16 h-16 rounded-full flex items-center justify-center'
 								style={{ backgroundColor: `${COLORS.primary}15` }}
 							>
-								<PhoneIcon style={{ color: COLORS.primary }} />
-							</div>
-							<div>
-								<h4 className='font-semibold text-gray-800'>Teléfono</h4>
-								<p className='text-gray-600'>771 771 604 0985</p>
+								<LocationOnIcon sx={{ fontSize: 32, color: COLORS.primary }} />
 							</div>
 						</div>
+						<h3 className='font-semibold text-gray-800 text-lg mb-2'>
+							Ubicación
+						</h3>
+						<p className='text-gray-600'>Pachuca, Hidalgo</p>
+					</div>
+				</div>
+			</div>
 
-						<div className='flex items-center gap-4'>
-							<div
-								className='w-12 h-12 rounded-full flex items-center justify-center'
-								style={{ backgroundColor: `${COLORS.primary}15` }}
-							>
-								<EmailIcon style={{ color: COLORS.primary }} />
-							</div>
+			{/*REDES SOCIALES */}
+			<div className='max-w-6xl mx-auto mb-16'>
+				<div className='text-center mb-12'>
+					<h3 className='text-3xl md:text-4xl font-bold text-gray-800 mb-6'>
+						SÍGUENOS EN{' '}
+						<span style={{ color: COLORS.primary }}>REDES SOCIALES</span>
+					</h3>
+					<div className='flex justify-center mb-8'>
+						<div
+							className='w-32 h-1 rounded-full'
+							style={{
+								background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.primary}80)`,
+							}}
+						></div>
+					</div>
+					<p className='text-lg text-gray-600 max-w-3xl mx-auto'>
+						Mantente al día con nuestros proyectos, noticias y contenido
+						exclusivo
+					</p>
+				</div>
+
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+					{/* FACEBOOK */}
+					<div className='bg-white rounded-xl shadow-lg p-6'>
+						<div className='flex items-center gap-3 mb-6'>
+							<FacebookIcon sx={{ fontSize: 32, color: '#1877F2' }} />
 							<div>
-								<h4 className='font-semibold text-gray-800'>
-									Correo Electrónico
-								</h4>
+								<h4 className='text-xl font-bold text-gray-800'>Facebook</h4>
 								<p className='text-gray-600'>
-									contacto@corporativoehecatl.com.mx
+									Últimas publicaciones y noticias
 								</p>
 							</div>
 						</div>
 
-						<div className='flex items-center gap-4'>
-							<div
-								className='w-12 h-12 rounded-full flex items-center justify-center'
-								style={{ backgroundColor: `${COLORS.primary}15` }}
-							>
-								<LocationOnIcon style={{ color: COLORS.primary }} />
-							</div>
-							<div>
-								<h4 className='font-semibold text-gray-800'>Ubicación</h4>
-								<p className='text-gray-600'>Pachuca, Hidalgo, México</p>
-							</div>
-						</div>
-					</div>
-
-					<div className='mb-6'>
-						<h3 className='text-lg font-semibold text-gray-800 mb-4'>
-							Visita nuestras redes sociales y conoce más de lo que hacemos
-						</h3>
-						<Link
-							href='https://www.facebook.com/corporativoehecatl/'
-							target='_blank'
-							rel='noopener noreferrer'
-							className='inline-flex items-center gap-3 bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-blue-700 transition-all transform hover:scale-[1.02] shadow-lg'
+						{/*IMAGEN DE FONDO */}
+						<div
+							className='relative rounded-lg p-6 text-center overflow-hidden'
+							style={{
+								backgroundImage: 'url("/corporativofb.jpg")',
+								backgroundSize: 'cover',
+								backgroundPosition: 'center',
+							}}
 						>
-							<FacebookIcon fontSize='medium' />
-							Síguenos en Facebook
-						</Link>
+							<div className='absolute inset-0 bg-black/50'></div>
+
+							<div className='relative z-10'>
+								<FacebookIcon
+									sx={{ fontSize: 48 }}
+									className='mb-3 text-blue-600'
+								/>
+								<h5 className='text-lg font-bold mb-2'>Corporativoehecatl</h5>
+								<p className='mb-4 text-sm'>
+									Síguenos para ver más proyectos y noticias de tecnología
+								</p>
+								<Link
+									href='https://www.facebook.com/corporativoehecatl/'
+									target='_blank'
+									rel='noopener noreferrer'
+									className='bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all inline-block'
+								>
+									Seguir en Facebook
+								</Link>
+							</div>
+						</div>
 					</div>
 
-					<div className='bg-white p-6 rounded-xl shadow-md'>
-						<h4 className='font-semibold text-gray-800 mb-3'>
-							Horarios de Atención
-						</h4>
-						<div className='text-gray-600 space-y-1'>
-							<p>Lunes - Viernes: 9:00 AM - 6:00 PM</p>
-							<p>Sábado: 9:00 AM - 12:00 PM</p>
+					{/*YOUTUBE */}
+					<div className='bg-white rounded-xl shadow-lg p-6'>
+						<div className='flex items-center gap-3 mb-6'>
+							<YouTubeIcon sx={{ fontSize: 32, color: '#FF0000' }} />
+							<div>
+								<h4 className='text-xl font-bold text-gray-800'>YouTube</h4>
+								<p className='text-gray-600'>Videos y tutoriales</p>
+							</div>
 						</div>
+
+						{/* CONTENIDO DE YOUTUBE - COMENTADO PARA DESARROLLO FUTURO */}
+						{/*
+						<div className='space-y-4'>
+							<div className='bg-gray-100 rounded-lg h-40 flex items-center justify-center mb-4'>
+								<div className='text-center'>
+									<YouTubeIcon sx={{ fontSize: 48, color: '#FF0000' }} className='mb-2' />
+									<p className='text-gray-600'>Último video</p>
+								</div>
+							</div>
+							<h5 className='font-semibold text-gray-800'>
+								Instalación de Sistema Domótico Completo
+							</h5>
+							<p className='text-gray-600 text-sm'>
+								Tutorial paso a paso de cómo instalamos un sistema completo...
+							</p>
+						</div>
+						*/}
+
+						{/* TEMPORAL */}
+						<div className='space-y-4'>
+							<div className='bg-red-50 border-2 border-dashed border-red-200 rounded-lg h-40 flex items-center justify-center'>
+								<div className='text-center'>
+									<YouTubeIcon
+										sx={{ fontSize: 48, color: '#FF0000' }}
+										className='mb-2'
+									/>
+									<p className='text-gray-600 font-medium'>Canal de YouTube</p>
+									<p className='text-gray-500 text-sm'>Próximamente</p>
+								</div>
+							</div>
+							<div className='text-center'>
+								<h5 className='font-semibold text-gray-800 mb-2'>
+									¡Estamos preparando contenido increíble!
+								</h5>
+								<p className='text-gray-600 text-sm'>
+									Tutoriales, proyectos y todo sobre tecnología y domótica
+								</p>
+							</div>
+						</div>
+
+						<div className='mt-6 text-center'>
+							<button
+								disabled
+								className='inline-flex items-center gap-2 bg-gray-400 text-white px-6 py-3 rounded-lg font-medium cursor-not-allowed'
+							>
+								<YouTubeIcon />
+								Suscribirse (Próximamente)
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* CONTACTO */}
+			<div className='max-w-4xl mx-auto'>
+				<div className='text-center mb-12'>
+					<h3 className='text-3xl md:text-4xl font-bold text-gray-800 mb-6'>
+						ENVÍANOS UN <span style={{ color: COLORS.primary }}>MENSAJE</span>
+					</h3>
+					<div className='flex justify-center mb-8'>
+						<div
+							className='w-32 h-1 rounded-full'
+							style={{
+								background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.primary}80)`,
+							}}
+						></div>
 					</div>
 				</div>
 
 				<div className='bg-white rounded-xl p-8 shadow-xl'>
-					<h3 className='text-2xl font-bold mb-6 text-gray-800'>Contáctanos</h3>
-
 					{message && (
 						<div
 							className={`mb-6 p-4 rounded-lg ${
@@ -179,8 +300,8 @@ export default function ContactSection() {
 						</div>
 					)}
 
-					<form onSubmit={handleSubmit} className='space-y-4'>
-						<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+					<form onSubmit={handleSubmit} className='space-y-6'>
+						<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 							<div>
 								<label className='block text-gray-700 font-medium mb-2'>
 									Nombre *
@@ -190,7 +311,7 @@ export default function ContactSection() {
 									name='name'
 									value={formData.name}
 									onChange={handleInputChange}
-									className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-800'
+									className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:border-transparent text-gray-800'
 									required
 									placeholder='Tu nombre completo'
 									disabled={isLoading}
@@ -206,7 +327,7 @@ export default function ContactSection() {
 									name='email'
 									value={formData.email}
 									onChange={handleInputChange}
-									className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-800'
+									className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:border-transparent text-gray-800'
 									placeholder='tu@email.com'
 									required
 									disabled={isLoading}
@@ -223,7 +344,7 @@ export default function ContactSection() {
 								name='phone'
 								value={formData.phone}
 								onChange={handleInputChange}
-								className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-800'
+								className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:border-transparent text-gray-800'
 								placeholder='(opcional)'
 								disabled={isLoading}
 							/>
@@ -237,7 +358,7 @@ export default function ContactSection() {
 								name='service'
 								value={formData.service}
 								onChange={handleInputChange}
-								className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-800'
+								className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:border-transparent text-gray-800'
 								required
 								disabled={isLoading}
 							>
@@ -262,7 +383,7 @@ export default function ContactSection() {
 								name='message'
 								value={formData.message}
 								onChange={handleInputChange}
-								className='w-full border border-gray-300 rounded-lg px-4 py-3 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-800'
+								className='w-full border border-gray-300 rounded-lg px-4 py-3 h-32 resize-none focus:outline-none focus:ring-2 focus:border-transparent text-gray-800'
 								placeholder='Cuéntanos sobre tu consulta...'
 								required
 								disabled={isLoading}
