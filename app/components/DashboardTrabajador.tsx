@@ -1,33 +1,46 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { User } from 'lucide-react';
+import { Person as User, Work, Assignment } from '@mui/icons-material';
 import { toast } from 'sonner';
 import { supabase } from '@/lib/supabase';
 import { COLORS } from '@/app/constants/colors';
 
-import { ClientSidebar, PersonalInfo } from './clientDashboard';
+import { WorkerSidebar, PersonalInfo } from './workerDashboard';
 
-import type { UserProfile, SidebarItem, EditFormData } from './clientDashboard';
+import type {
+	WorkerProfile,
+	WorkerSidebarItem,
+	WorkerEditFormData,
+} from './workerDashboard';
 
-export default function DashboardCliente() {
-	const [user, setUser] = useState<UserProfile | null>(null);
+export default function DashboardTrabajador() {
+	const [user, setUser] = useState<WorkerProfile | null>(null);
 	const [editing, setEditing] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [activeSection, setActiveSection] = useState('personal');
-	const [editForm, setEditForm] = useState<EditFormData>({
+	const [editForm, setEditForm] = useState<WorkerEditFormData>({
 		nombre: '',
 		apellido: '',
 		telefono: '',
 	});
 
-	const sidebarItems: SidebarItem[] = [
+	const sidebarItems: WorkerSidebarItem[] = [
 		{
 			id: 'personal',
 			label: 'Información Personal',
 			icon: <User className='w-5 h-5' />,
 		},
-		// otras sections
+		{
+			id: 'jobs',
+			label: 'Trabajos Disponibles',
+			icon: <Work className='w-5 h-5' />,
+		},
+		{
+			id: 'assignments',
+			label: 'Mis Asignaciones',
+			icon: <Assignment className='w-5 h-5' />,
+		},
 	];
 
 	const loadUserProfile = async () => {
@@ -47,6 +60,12 @@ export default function DashboardCliente() {
 				.single();
 
 			if (error) throw error;
+
+			if (profile.role !== 'trabajador') {
+				toast.error('Acceso no autorizado');
+				window.location.href = '/dashboard';
+				return;
+			}
 
 			setUser(profile);
 			setEditForm({
@@ -142,7 +161,7 @@ export default function DashboardCliente() {
 	return (
 		<>
 			<div className='min-h-screen bg-gray-50 flex'>
-				<ClientSidebar
+				<WorkerSidebar
 					user={user}
 					activeSection={activeSection}
 					setActiveSection={setActiveSection}
@@ -153,7 +172,8 @@ export default function DashboardCliente() {
 				<div className='flex-1 flex flex-col'>
 					<div className='bg-white border-b border-gray-200 px-8 py-6'>
 						<h1 className='text-4xl md:text-5xl font-bold text-gray-800'>
-							MI <span style={{ color: COLORS.primary }}>PERFIL</span>
+							MI{' '}
+							<span style={{ color: COLORS.primary }}>PERFIL PROFESIONAL</span>
 						</h1>
 						<div
 							className='w-32 h-1 rounded-full mt-4'
@@ -162,7 +182,8 @@ export default function DashboardCliente() {
 							}}
 						></div>
 						<p className='text-lg text-gray-600 mt-4'>
-							Administra tu información personal y configuraciones de cuenta
+							Gestiona tu información profesional y encuentra nuevas
+							oportunidades
 						</p>
 					</div>
 
@@ -177,6 +198,26 @@ export default function DashboardCliente() {
 								onSave={handleSave}
 								onCancel={handleCancel}
 							/>
+						)}
+						{activeSection === 'jobs' && (
+							<div className='bg-white rounded-2xl shadow-lg p-8'>
+								<h2 className='text-2xl font-bold text-gray-800 mb-4'>
+									Trabajos Disponibles
+								</h2>
+								<p className='text-gray-600'>
+									Aquí aparecerán los trabajos disponibles para tu especialidad.
+								</p>
+							</div>
+						)}
+						{activeSection === 'assignments' && (
+							<div className='bg-white rounded-2xl shadow-lg p-8'>
+								<h2 className='text-2xl font-bold text-gray-800 mb-4'>
+									Mis Asignaciones
+								</h2>
+								<p className='text-gray-600'>
+									Aquí aparecerán tus trabajos asignados.
+								</p>
+							</div>
 						)}
 					</div>
 				</div>

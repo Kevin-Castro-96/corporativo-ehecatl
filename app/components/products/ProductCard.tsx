@@ -6,7 +6,6 @@ import { COLORS } from '@/app/constants/colors';
 
 export default function ProductCard({
 	product,
-	onViewProduct,
 	onBuyProduct,
 }: ProductCardProps) {
 	return (
@@ -36,20 +35,15 @@ export default function ProductCard({
 				</div>
 
 				<div className='flex gap-3'>
-					<button
-						onClick={() => onViewProduct(product)}
-						className='flex-1 border-2 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-all'
-						style={{ borderColor: COLORS.primary }}
-					>
-						Ver Producto
-					</button>
-					<button
-						onClick={() => onBuyProduct(product)}
-						className='flex-1 text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all transform hover:scale-[1.02]'
+					<a
+						href={product.shopUrl}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='flex-1 text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all transform hover:scale-[1.02] text-center cursor-pointer'
 						style={{ backgroundColor: COLORS.primary }}
 					>
 						Ir a la tienda
-					</button>
+					</a>
 				</div>
 			</div>
 		</article>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import DashboardCliente from '@/app/components/DashboardCliente';
 import DashboardAdmin from '@/app/components/DashboardAdmin';
+import DashboardTrabajador from '@/app/components/DashboardTrabajador';
 
 export default function DashboardPage() {
 	const [userRole, setUserRole] = useState<string | null>(null);
@@ -51,6 +52,8 @@ export default function DashboardPage() {
 	if (userRole === 'admin') {
 		return <DashboardAdmin />;
 	}
-
+	if (userRole === 'trabajador') {
+		return <DashboardTrabajador />;
+	}
 	return <DashboardCliente />;
 }

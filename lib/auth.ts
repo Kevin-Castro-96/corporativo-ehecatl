@@ -18,7 +18,7 @@ export async function getSession(req?: Request) {
 
   // Obtener datos extras desde tabla "users"
   const { data: profile } = await supabase
-    .from("users")
+    .from("profiles")
     .select("*")
     .eq("id", data.user.id)
     .single();

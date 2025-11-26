@@ -1,4 +1,9 @@
-import { Users, Shield, UserCheck, Filter } from 'lucide-react';
+import {
+	Users,
+	Shield,
+	BriefcaseBusiness,
+	// CreditCard,
+} from 'lucide-react';
 import { COLORS } from '@/app/constants/colors';
 import { UserStats } from './types';
 
@@ -27,21 +32,21 @@ export default function UserStatsCards({ stats }: UserStatsCardsProps) {
 			color: COLORS.accent,
 		},
 		{
-			label: 'Confirmados',
-			value: stats.confirmed,
-			icon: <UserCheck className='w-8 h-8 text-green-500' />,
-			color: '#059669',
+			label: 'Trabajadores',
+			value: stats.trabajadores,
+			icon: <BriefcaseBusiness className='w-8 h-8 text-blue-500' />,
+			color: '#3b82f6',
 		},
-		{
-			label: 'Pendientes',
-			value: stats.pending,
-			icon: <Filter className='w-8 h-8 text-orange-500' />,
-			color: '#ea580c',
-		},
+		// {
+		// 	label: 'Trabajadores Pagos',
+		// 	value: stats.workersWithPay,
+		// 	icon: <CreditCard className='w-8 h-8 text-emerald-500' />,
+		// 	color: '#10b981',
+		// },
 	];
 
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-5 gap-6'>
+		<div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
 			{statsConfig.map((stat, index) => (
 				<div
 					key={index}
