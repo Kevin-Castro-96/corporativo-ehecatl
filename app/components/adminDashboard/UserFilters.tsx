@@ -9,6 +9,7 @@ interface UserFiltersProps {
 	roleFilter: string;
 	setRoleFilter: (filter: string) => void;
 	onClearFilters: () => void;
+	isWorkerSection?: boolean;
 }
 
 export default function UserFilters({
@@ -17,13 +18,14 @@ export default function UserFilters({
 	roleFilter,
 	setRoleFilter,
 	onClearFilters,
+	isWorkerSection = false,
 }: UserFiltersProps) {
 	return (
 		<div className='bg-white rounded-2xl shadow-lg p-8'>
 			<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
 				<div>
 					<label className='block text-sm font-medium text-gray-700 mb-2'>
-						Buscar usuario
+						Buscar {isWorkerSection ? 'trabajador' : 'usuario'}
 					</label>
 					<div className='relative'>
 						<Search className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
@@ -38,16 +40,29 @@ export default function UserFilters({
 
 				<div>
 					<label className='block text-sm font-medium text-gray-700 mb-2'>
-						Filtrar por rol
+						{isWorkerSection ? 'Filtrar por especialidad' : 'Filtrar por rol'}
 					</label>
 					<select
 						value={roleFilter}
 						onChange={(e) => setRoleFilter(e.target.value)}
 						className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 					>
-						<option value='todos'>Todos los roles</option>
-						<option value='admin'>Administradores</option>
-						<option value='cliente'>Clientes</option>
+						{isWorkerSection ? (
+							<>
+								<option value='trabajador'>Todas las especialidades</option>
+								<option value='plomeria'>Plomería</option>
+								<option value='jardineria'>Jardinería</option>
+								<option value='electricista'>Electricista</option>
+								<option value='inmobiliaria'>Inmobiliaria</option>
+							</>
+						) : (
+							<>
+								<option value='todos'>Todos los roles</option>
+								<option value='admin'>Administradores</option>
+								<option value='cliente'>Clientes</option>
+								<option value='trabajador'>Trabajadores</option>
+							</>
+						)}
 					</select>
 				</div>
 

@@ -1,20 +1,39 @@
-import { LogOut, Shield } from 'lucide-react';
+import { Logout } from '@mui/icons-material';
+import { Work as WorkIcon } from '@mui/icons-material';
 import { COLORS } from '@/app/constants/colors';
-import { SidebarItem } from './types';
+import { WorkerSidebarItem, WorkerProfile } from './types';
 
-interface AdminSidebarProps {
+interface WorkerSidebarProps {
+	user: WorkerProfile | null;
 	activeSection: string;
 	setActiveSection: (section: string) => void;
-	sidebarItems: SidebarItem[];
+	sidebarItems: WorkerSidebarItem[];
 	onLogout: () => void;
 }
 
-export default function AdminSidebar({
+const getSpecialityLabel = (speciality: string) => {
+	const labels = {
+		plomeria: 'Plomero',
+		jardineria: 'Jardinero',
+		electricista: 'Electricista',
+		inmobiliaria: 'Agente Inmobiliario',
+	};
+	return labels[speciality as keyof typeof labels] || speciality;
+};
+
+export default function WorkerSidebar({
+	user,
 	activeSection,
 	setActiveSection,
 	sidebarItems,
 	onLogout,
-}: AdminSidebarProps) {
+}: WorkerSidebarProps) {
+	const handleLogout = () => {
+		const confirmed = confirm('¿Estás seguro de que deseas cerrar sesión?');
+		if (confirmed) {
+			onLogout();
+		}
+	};
 	return (
 		<div className='w-80 bg-white shadow-xl border-r border-gray-200'>
 			<div className='p-6 border-b border-gray-200'>
@@ -23,18 +42,20 @@ export default function AdminSidebar({
 						className='w-12 h-12 rounded-full flex items-center justify-center'
 						style={{ backgroundColor: `${COLORS.primary}20` }}
 					>
-						<Shield className='w-6 h-6' style={{ color: COLORS.primary }} />
+						<WorkIcon className='w-6 h-6' style={{ color: COLORS.primary }} />
 					</div>
 					<div className='flex-1'>
-						<h3 className='font-semibold text-gray-900'>Panel Admin</h3>
+						<h3 className='font-semibold text-gray-900'>
+							{user?.nombre} {user?.apellido}
+						</h3>
 						<span
-							className='text-sm px-2 py-1 rounded-full'
+							className='text-xs px-2 py-1 rounded-full'
 							style={{
 								backgroundColor: `${COLORS.primary}20`,
 								color: COLORS.primary,
 							}}
 						>
-							Administrador
+							{user?.speciality && getSpecialityLabel(user.speciality)}
 						</span>
 					</div>
 				</div>
@@ -63,10 +84,10 @@ export default function AdminSidebar({
 
 					<div className='pt-4 mt-4 border-t border-gray-200'>
 						<button
-							onClick={onLogout}
+							onClick={handleLogout}
 							className='w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200 text-red-600 hover:bg-red-50'
 						>
-							<LogOut className='w-5 h-5' />
+							<Logout className='w-5 h-5' />
 							Cerrar Sesión
 						</button>
 					</div>
