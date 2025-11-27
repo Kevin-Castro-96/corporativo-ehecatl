@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-
 interface ResidentialService {
 	id: number;
 	title: string;
 	description: string;
 	imageUrl: string;
 	linkUrl: string;
+	isExternal?: boolean;
 }
 
 export default function ResidentialServicesGrid() {
@@ -19,7 +19,7 @@ export default function ResidentialServicesGrid() {
 				'Servicios profesionales de plomería para tu hogar. Reparaciones, instalaciones y mantenimiento.',
 			imageUrl:
 				'https://images.unsplash.com/photo-1676210134188-4c05dd172f89?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-			linkUrl: 'https://plomero.corporativoehecatl.com.mx/',
+			linkUrl: '/plomeria',
 		},
 		{
 			id: 2,
@@ -28,7 +28,7 @@ export default function ResidentialServicesGrid() {
 				'Cuidado y mantenimiento de jardines. Diseño paisajístico y servicios de jardinería profesional.',
 			imageUrl:
 				'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&auto=format&fit=crop&ixlib=rb-4.0.3',
-			linkUrl: 'https://jardinero.corporativoehecatl.com.mx/',
+			linkUrl: '/jardineria',
 		},
 		{
 			id: 3,
@@ -37,7 +37,7 @@ export default function ResidentialServicesGrid() {
 				'Instalaciones eléctricas seguras y confiables. Reparaciones y mantenimiento eléctrico residencial.',
 			imageUrl:
 				'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&auto=format&fit=crop&ixlib=rb-4.0.3',
-			linkUrl: 'https://electricista.corporativoehecatl.com.mx/',
+			linkUrl: '/electricista',
 		},
 		{
 			id: 4,
@@ -47,11 +47,16 @@ export default function ResidentialServicesGrid() {
 			imageUrl:
 				'https://images.unsplash.com/photo-1741156386380-0236c72eb6f9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			linkUrl: 'https://inmobiliaria-iram.vercel.app/',
+			isExternal: true,
 		},
 	];
 
-	const handleServiceClick = (linkUrl: string) => {
-		window.open(linkUrl, '_blank', 'noopener,noreferrer');
+	const handleServiceClick = (service: ResidentialService) => {
+		if (service.isExternal) {
+			window.open(service.linkUrl, '_blank', 'noopener,noreferrer');
+		} else {
+			window.open(service.linkUrl, '_blank', 'noopener,noreferrer');
+		}
 	};
 
 	return (
@@ -73,7 +78,7 @@ export default function ResidentialServicesGrid() {
 						<article
 							key={service.id}
 							className='group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-2 cursor-pointer'
-							onClick={() => handleServiceClick(service.linkUrl)}
+							onClick={() => handleServiceClick(service)}
 						>
 							<div className='relative h-64 overflow-hidden'>
 								<Image

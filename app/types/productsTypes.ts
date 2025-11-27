@@ -4,6 +4,7 @@ export interface Product {
 	price: number;
 	imageUrl: string;
 	category: 'chatbot' | 'telefonia' | 'comunicaciones' | 'luces';
+	shopUrl: string;
 }
 
 export interface ProductCardProps {
