@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const stats = [
@@ -73,9 +74,11 @@ export default function ElectricistaStats() {
 						No arriesgues tu seguridad. Conecta con electricistas profesionales
 						que garantizan trabajos seguros y de calidad.
 					</p>
+					<Link href="/register">
 					<button className='bg-white text-yellow-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl'>
 						Encontrar mi Electricista Ideal
 					</button>
+					</Link>
 				</div>
 			</div>
 		</section>

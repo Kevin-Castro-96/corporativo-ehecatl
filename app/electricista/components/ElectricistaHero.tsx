@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function ElectricistaHero() {
 	return (
@@ -32,12 +33,16 @@ export default function ElectricistaHero() {
 					</p>
 
 					<div className='flex flex-col sm:flex-row gap-4 justify-center items-center'>
+						<Link href='/register'>
 						<button className='bg-linear-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl'>
 							Encontrar Electricistas Ahora
 						</button>
+						</Link>
+						<Link href='#services'>
 						<button className='border-2 border-white text-white hover:bg-white hover:text-yellow-800 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300'>
 							Ver Servicios
 						</button>
+						</Link>
 					</div>
 
 					<div className='mt-12 flex flex-wrap justify-center gap-8 text-yellow-200'>
