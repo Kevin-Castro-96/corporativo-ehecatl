@@ -1,186 +1,215 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { User } from 'lucide-react';
-import { toast } from 'sonner';
-import { supabase } from '@/lib/supabase';
-import { COLORS } from '@/app/constants/colors';
+import { useState, useEffect } from "react";
+import { User } from "lucide-react";
+import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
+import { COLORS } from "@/app/constants/colors";
 
-import { ClientSidebar, PersonalInfo } from './clientDashboard';
-
-import type { UserProfile, SidebarItem, EditFormData } from './clientDashboard';
+import { ClientSidebar, PersonalInfo } from "./clientDashboard";
+import type { UserProfile, SidebarItem, EditFormData } from "./clientDashboard";
+import WorkerTableClient from "./clientDashboard/WorkerTableClient";
+import UserFiltersClient from "./clientDashboard/UserFiltersClient";
 
 export default function DashboardCliente() {
-	const [user, setUser] = useState<UserProfile | null>(null);
-	const [editing, setEditing] = useState(false);
-	const [loading, setLoading] = useState(true);
-	const [activeSection, setActiveSection] = useState('personal');
-	const [editForm, setEditForm] = useState<EditFormData>({
-		nombre: '',
-		apellido: '',
-		telefono: '',
-	});
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [workers, setWorkers] = useState<UserProfile[]>([]);
+  const [filteredWorkers, setFilteredWorkers] = useState<UserProfile[]>([]);
+  const [loading, setLoading] = useState(true);
 
-	const sidebarItems: SidebarItem[] = [
-		{
-			id: 'personal',
-			label: 'Información Personal',
-			icon: <User className='w-5 h-5' />,
-		},
-		// otras sections
-	];
+  const [activeSection, setActiveSection] = useState("personal");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [specialityFilter, setSpecialityFilter] = useState("todos");
 
-	const loadUserProfile = async () => {
-		try {
-			const res = await fetch('/api/auth/session');
-			const { session } = await res.json();
+  const [editing, setEditing] = useState(false);
+  const [editForm, setEditForm] = useState<EditFormData>({
+    nombre: "",
+    apellido: "",
+    telefono: "",
+  });
 
-			if (!session) {
-				window.location.href = '/login';
-				return;
-			}
+  /* ------------------------
+     SIDEBAR
+  ------------------------ */
+  const sidebarItems: SidebarItem[] = [
+    {
+      id: "personal",
+      label: "Información Personal",
+      icon: <User className="w-5 h-5" />,
+    },
+    {
+      id: "trabajadores",
+      label: "Buscar Trabajadores",
+      icon: <User className="w-5 h-5" />,
+    },
+  ];
 
-			const { data: profile, error } = await supabase
-				.from('profiles')
-				.select('*')
-				.eq('id', session.user.id)
-				.single();
+  /* ------------------------
+     PERFIL CLIENTE
+  ------------------------ */
+  const loadUserProfile = async () => {
+    try {
+      const res = await fetch("/api/auth/session");
+      const { session } = await res.json();
 
-			if (error) throw error;
+      if (!session) {
+        window.location.href = "/login";
+        return;
+      }
 
-			setUser(profile);
-			setEditForm({
-				nombre: profile.nombre,
-				apellido: profile.apellido,
-				telefono: profile.telefono,
-			});
-		} catch (error) {
-			console.error('Error cargando perfil:', error);
-			toast.error('Error al cargar perfil');
-			window.location.href = '/login';
-		} finally {
-			setLoading(false);
-		}
-	};
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single();
 
-	const handleLogout = async () => {
-		try {
-			await fetch('/api/auth/logout', { method: 'POST' });
-			window.location.href = '/login';
-			toast.success('Sesión cerrada correctamente');
-		} catch (error) {
-			console.error('Error cerrando sesión:', error);
-			toast.error('Error al cerrar sesión');
-		}
-	};
+      if (error) throw error;
 
-	const handleEdit = () => {
-		setEditing(true);
-		setEditForm({
-			nombre: user?.nombre || '',
-			apellido: user?.apellido || '',
-			telefono: user?.telefono || '',
-		});
-	};
+      setUser(data);
+      setEditForm({
+        nombre: data.nombre,
+        apellido: data.apellido,
+        telefono: data.telefono,
+      });
+    } catch (error) {
+      toast.error("Error al cargar perfil");
+    }
+  };
 
-	const handleSave = async () => {
-		try {
-			if (!user) return;
+  /* ------------------------
+     TRABAJADORES
+  ------------------------ */
+  const loadWorkers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select(
+          "id, nombre, apellido, email, telefono, speciality, pay, created_at"
+        )
+        .eq("role", "trabajador")
+        .order("created_at", { ascending: false });
 
-			const { error } = await supabase
-				.from('profiles')
-				.update({
-					nombre: editForm.nombre,
-					apellido: editForm.apellido,
-					telefono: editForm.telefono,
-				})
-				.eq('id', user.id);
+      if (error) throw error;
 
-			if (error) throw error;
+      setWorkers(data || []);
+      setFilteredWorkers(data || []);
+    } catch (error) {
+      toast.error("Error cargando trabajadores");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-			setUser({
-				...user,
-				nombre: editForm.nombre,
-				apellido: editForm.apellido,
-				telefono: editForm.telefono,
-			});
+  /* ------------------------
+     FILTROS
+  ------------------------ */
+  useEffect(() => {
+    let result = workers;
 
-			setEditing(false);
-			toast.success('Perfil actualizado correctamente');
-		} catch (error) {
-			console.error('Error actualizando perfil:', error);
-			toast.error('Error al actualizar perfil');
-		}
-	};
+    if (searchTerm) {
+      result = result.filter(
+        (w) =>
+          w.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          w.apellido.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          w.email.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
 
-	const handleCancel = () => {
-		setEditing(false);
-		setEditForm({
-			nombre: user?.nombre || '',
-			apellido: user?.apellido || '',
-			telefono: user?.telefono || '',
-		});
-	};
+    if (specialityFilter !== "todos") {
+      result = result.filter((w) => w.speciality === specialityFilter);
+    }
 
-	useEffect(() => {
-		loadUserProfile();
-	}, []);
+    setFilteredWorkers(result);
+  }, [searchTerm, specialityFilter, workers]);
 
-	if (loading) {
-		return (
-			<>
-				<div className='min-h-screen bg-gray-50 flex items-center justify-center'>
-					<div
-						className='animate-spin rounded-full h-12 w-12 border-b-2'
-						style={{ borderColor: COLORS.primary }}
-					></div>
-				</div>
-			</>
-		);
-	}
+  /* ------------------------
+     INIT
+  ------------------------ */
+  useEffect(() => {
+    loadUserProfile();
+    loadWorkers();
+  }, []);
 
-	return (
-		<>
-			<div className='min-h-screen bg-gray-50 flex'>
-				<ClientSidebar
-					user={user}
-					activeSection={activeSection}
-					setActiveSection={setActiveSection}
-					sidebarItems={sidebarItems}
-					onLogout={handleLogout}
-				/>
+  /* ------------------------
+     PERFIL ACTIONS
+  ------------------------ */
+  const handleSave = async () => {
+    if (!user) return;
 
-				<div className='flex-1 flex flex-col'>
-					<div className='bg-white border-b border-gray-200 px-8 py-6'>
-						<h1 className='text-4xl md:text-5xl font-bold text-gray-800'>
-							MI <span style={{ color: COLORS.primary }}>PERFIL</span>
-						</h1>
-						<div
-							className='w-32 h-1 rounded-full mt-4'
-							style={{
-								background: `linear-gradient(to right, ${COLORS.primary}, ${COLORS.primary}80)`,
-							}}
-						></div>
-						<p className='text-lg text-gray-600 mt-4'>
-							Administra tu información personal y configuraciones de cuenta
-						</p>
-					</div>
+    const { error } = await supabase
+      .from("profiles")
+      .update(editForm)
+      .eq("id", user.id);
 
-					<div className='flex-1 p-8'>
-						{activeSection === 'personal' && (
-							<PersonalInfo
-								user={user}
-								editing={editing}
-								editForm={editForm}
-								setEditForm={setEditForm}
-								onEdit={handleEdit}
-								onSave={handleSave}
-								onCancel={handleCancel}
-							/>
-						)}
-					</div>
-				</div>
-			</div>
-		</>
-	);
+    if (error) {
+      toast.error("Error al guardar");
+      return;
+    }
+
+    setUser({ ...user, ...editForm });
+    setEditing(false);
+    toast.success("Perfil actualizado");
+  };
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    window.location.href = "/login";
+  };
+
+  /* ------------------------
+     UI
+  ------------------------ */
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div
+          className="animate-spin rounded-full h-12 w-12 border-b-2"
+          style={{ borderColor: COLORS.primary }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex">
+      <ClientSidebar
+        user={user}
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+        sidebarItems={sidebarItems}
+        onLogout={handleLogout}
+      />
+
+      <div className="flex-1 p-8">
+        {activeSection === "personal" && (
+          <PersonalInfo
+            user={user}
+            editing={editing}
+            editForm={editForm}
+            setEditForm={setEditForm}
+            onEdit={() => setEditing(true)}
+            onSave={handleSave}
+            onCancel={() => setEditing(false)}
+          />
+        )}
+
+        {activeSection === "trabajadores" && (
+          <>
+            <UserFiltersClient
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              speciality={specialityFilter}
+              setSpeciality={setSpecialityFilter}
+              onClear={() => {
+                setSearchTerm("");
+                setSpecialityFilter("todos");
+              }}
+            />
+
+            <WorkerTableClient workers={filteredWorkers} />
+          </>
+        )}
+      </div>
+    </div>
+  );
 }

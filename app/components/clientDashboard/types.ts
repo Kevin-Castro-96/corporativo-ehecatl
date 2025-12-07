@@ -4,7 +4,8 @@ export interface UserProfile {
 	apellido: string;
 	telefono: string;
 	email: string;
-	role: string;
+	speciality: string;
+	created_at: string;
 }
 
 export interface SidebarItem {

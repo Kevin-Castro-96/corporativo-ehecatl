@@ -90,7 +90,7 @@ export default function RegisterPage() {
 					}`}
 				>
 					<PersonIcon className="w-5 h-5" />
-					Cliente
+					Contratista
 				</button>
 				<button
 					onClick={() => setActiveTab('trabajador')}
@@ -108,11 +108,11 @@ export default function RegisterPage() {
 			<div className="mb-6 p-3 bg-gray-50 rounded-lg">
 				{activeTab === 'cliente' ? (
 					<p className="text-sm text-gray-700">
-						<strong>Cliente:</strong> Publica proyectos y contrata profesionales para tus necesidades del hogar.
+						<strong>Contratista:</strong> Crea una cuenta gratis para poder contratar profesionales segun las necesidades del hogar.
 					</p>
 				) : (
 					<p className="text-sm text-gray-700">
-						<strong>Profesional:</strong> Ofrece tus servicios y encuentra trabajos en tu área de especialidad.
+						<strong>Profesional:</strong> Crea una cuenta gratis para ofrecer tus servicios y encuentra trabajos en tu área de especialidad.
 					</p>
 				)}
 			</div>
