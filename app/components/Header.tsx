@@ -57,7 +57,7 @@ export default function Header() {
               className="h-16 w-auto"
             />
             <div>
-              <h1 className="text-xl font-bold text-gray-800">Corporativo</h1>
+              <h1 className="text-xl font-bold text-gray-800">Corporativo Kevin</h1>
               <p className="text-sm text-gray-500 -mt-1">Ehécatl</p>
             </div>
           </Link>
