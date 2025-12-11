@@ -4,6 +4,7 @@ import { SidebarItem, UserProfile } from './types';
 
 interface ClientSidebarProps {
 	user: UserProfile | null;
+	className?: string;
 	activeSection: string;
 	setActiveSection: (section: string) => void;
 	sidebarItems: SidebarItem[];
@@ -24,7 +25,7 @@ export default function ClientSidebar({
 		}
 	};
 	return (
-		<div className='w-80 bg-white shadow-xl border-r border-gray-200'>
+		<div className='w-screen md:w-80 bg-white shadow-xl border-r border-gray-200'>
 			<div className='p-6 border-b border-gray-200'>
 				<div className='flex items-center gap-3 p-2'>
 					<div

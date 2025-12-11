@@ -65,7 +65,7 @@ export default function ResidentialServicesGrid() {
 				<div className='text-center mb-16'>
 					<h2 className='text-4xl md:text-5xl font-bold text-gray-800 mb-6'>
 						BUSCAMOS EXPERTOS PARA PROYECTOS EN TODO{' '}
-						<span className='text-red-600'>PACHUCA</span>
+						<span className='text-red-600'>MEXICO</span>
 					</h2>
 					<div className='w-24 h-1 bg-linear-to-r from-red-600 to-red-400 mx-auto rounded-full mb-8'></div>
 					<p className='text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed'>
