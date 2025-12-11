@@ -26,6 +26,8 @@ export default function DashboardCliente() {
     nombre: "",
     apellido: "",
     telefono: "",
+    city: "",
+    country: "",
   });
 
   /* ------------------------
@@ -70,6 +72,8 @@ export default function DashboardCliente() {
         nombre: data.nombre,
         apellido: data.apellido,
         telefono: data.telefono,
+        city: data.city,
+        country: data.country,
       });
     } catch (error) {
       toast.error("Error al cargar perfil");
@@ -84,7 +88,7 @@ export default function DashboardCliente() {
       const { data, error } = await supabase
         .from("profiles")
         .select(
-          "id, nombre, apellido, email, telefono, speciality, pay, created_at"
+          "id, nombre, apellido, email, telefono, speciality, pay, created_at, city, country"
         )
         .eq("role", "trabajador")
         .order("created_at", { ascending: false });
@@ -171,7 +175,7 @@ export default function DashboardCliente() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
       <ClientSidebar
         user={user}
         activeSection={activeSection}

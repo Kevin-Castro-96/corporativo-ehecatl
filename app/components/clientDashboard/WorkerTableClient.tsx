@@ -63,6 +63,8 @@ export default function WorkerTableClient({ workers }: WorkerTableClientProps) {
               <th className="px-6 py-4 text-left">Especialidad</th>
               <th className="px-6 py-4 text-left">Contacto</th>
               <th className="px-6 py-4 text-left">Registro</th>
+              <th className="px-4 py-2 text-left">Ciudad</th>
+              <th className="px-4 py-2 text-left">País</th>
             </tr>
           </thead>
 
@@ -89,6 +91,8 @@ export default function WorkerTableClient({ workers }: WorkerTableClientProps) {
                 <td className="px-6 py-4 text-sm">
                   {new Date(w.created_at).toLocaleDateString()}
                 </td>
+                <td className="px-4 py-2">{w.city || "-"}</td>
+                <td className="px-4 py-2">{w.country || "-"}</td>
               </tr>
             ))}
           </tbody>

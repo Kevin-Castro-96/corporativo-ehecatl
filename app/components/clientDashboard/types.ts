@@ -6,6 +6,8 @@ export interface UserProfile {
 	email: string;
 	speciality: string;
 	created_at: string;
+	city: string;
+	country: string;
 }
 
 export interface SidebarItem {
@@ -18,4 +20,6 @@ export interface EditFormData {
 	nombre: string;
 	apellido: string;
 	telefono: string;
+	city: string;
+	country: string;
 }
