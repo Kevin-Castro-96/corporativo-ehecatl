@@ -283,7 +283,7 @@ export default function DashboardTrabajador() {
                         </div>
 
                         <p className="text-sm text-gray-500 mt-4">
-                          *Pago seguro con PayPal o Mercado Pago.
+                          *Pago seguro con PayPal.
                         </p>
                       </div>
                     </div>
@@ -363,7 +363,8 @@ export default function DashboardTrabajador() {
                         </PayPalScriptProvider>
 
                         {/* MERCADO PAGO */}
-                        <button
+
+                        {/* <button
                           onClick={pagarMercadoPago}
                           disabled={loadingMP}
                           className="mt-4 w-full bg-[#08BDFE] hover:bg-blue-700 text-white font-semibold py-3 rounded-md"
@@ -371,11 +372,11 @@ export default function DashboardTrabajador() {
                           {loadingMP
                             ? "Procesando..."
                             : "Pagar con Mercado Pago"}
-                        </button>
+                        </button> */}
                       </div>
 
                       <div className="text-center mt-4 text-gray-500 text-sm">
-                        Pago seguro con PayPal o Mercado Pago 🔒
+                        Pago seguro con PayPal🔒
                       </div>
                     </div>
                   </div>
